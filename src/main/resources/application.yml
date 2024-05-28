@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/Ploggers?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    url: jdbc:mysql://ploggersdb.c5so64cswk05.ap-northeast-2.rds.amazonaws.com:3306/ploggers?createDatabaseIfNotExist=true&characterEncoding=UTF-8&characterSetResults=UTF-8?&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://ploggersdb.c5so64cswk05.ap-northeast-2.rds.amazonaws.com:3306/test?createDatabaseIfNotExist=true&characterEncoding=UTF-8&characterSetResults=UTF-8?&useSSL=false&serverTimezone=UTC
 #    username: root
     username: test
     password: "!tmdqls51"
