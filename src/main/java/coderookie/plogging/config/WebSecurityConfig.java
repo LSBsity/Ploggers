@@ -29,6 +29,7 @@ public class WebSecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;  // JWT 인증 필터를 주입받습니다.
 
+
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {  // 보안 필터 체인을 구성하는 메서드입니다.
         httpSecurity
@@ -70,6 +71,7 @@ public class WebSecurityConfig {
     protected CorsConfigurationSource corsConfigurationSource() {  // CORS 설정을 구성하는 메서드입니다.
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("*");  // 모든 도메인에서의 접근을 허용합니다.
+        configuration.addAllowedOrigin("http://localhost:3000"); // 허용할 origin 설정
         configuration.addAllowedMethod("*");  // 모든 HTTP 메서드를 허용합니다.
         configuration.addExposedHeader("*");  // 모든 헤더를 노출합니다.
 
