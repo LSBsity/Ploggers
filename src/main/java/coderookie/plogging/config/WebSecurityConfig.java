@@ -21,7 +21,9 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 @Configuration  // 이 클래스가 스프링 설정 클래스임을 나타냅니다.
 @EnableWebSecurity  // 웹 보안을 활성화합니다.
@@ -71,14 +73,10 @@ public class WebSecurityConfig {
     @Bean
     protected CorsConfigurationSource corsConfigurationSource() {  // CORS 설정을 구성하는 메서드입니다.
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");  // 모든 도메인에서의 접근을 허용합니다.
-        configuration.addAllowedOrigin("http://localhost:5173"); // 허용할 origin 설정
-        configuration.setAllowedOriginPatterns(Collections.singletonList("http://localhost:5173"));
-        configuration.addAllowedMethod("*");  // 모든 HTTP 메서드를 허용합니다.
-        configuration.addExposedHeader("*");  // 모든 헤더를 노출합니다.
-
+        configuration.applyPermitDefaultValues();
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);  // 모든 경로에 대해 CORS 설정을 등록합니다.
+        source.registerCorsConfiguration("/**",configuration);
         return source;
     }
 }
