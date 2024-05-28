@@ -5,7 +5,7 @@ spring:
     url: jdbc:mysql://ploggersdb.c5so64cswk05.ap-northeast-2.rds.amazonaws.com:3306/test
 #    username: root
     username: test
-    password: !tmdqls51
+    password: "!tmdqls51"
 
   jpa:
     hibernate:
