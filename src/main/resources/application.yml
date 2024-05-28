@@ -3,12 +3,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://127.0.0.1:3306/Ploggers?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     url: jdbc:mysql://ploggers.c5so64cswk05.ap-northeast-2.rds.amazonaws.com:3306/ploggers?createDatabaseIfNotExist=true&characterEncoding=UTF-8&characterSetResults=UTF-8
+#    username: root
     username: test
     password: "!tmdqls51"
 
   jpa:
     hibernate:
       ddl-auto: create
+#      ddl-auto: create
     show-sql: true
     properties:
       hibernate:

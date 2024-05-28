@@ -63,23 +63,17 @@ dependencies {
 //    useJUnitPlatform()
 //}
 
-clean {
-    delete file('src/main/generated')
+// === ⭐ QueryDsl 빌드 옵션 (선택) ===
+def querydslDir = "$buildDir/generated/querydsl"
+
+sourceSets {
+    main.java.srcDirs += [ querydslDir ]
 }
 
-//querydsl 추가 시작
-def querydslDir = "$buildDir/generated/querydsl"
-querydsl {
-    jpa = true
-    querydslSourcesDir = querydslDir
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
 }
-sourceSets {
-    main.java.srcDir querydslDir
+
+clean.doLast {
+    file(querydslDir).deleteDir()
 }
-configurations {
-    querydsl.extendsFrom compileClasspath
-}
-compileQuerydsl {
-    options.annotationProcessorPath = configurations.querydsl
-}
-//querydsl 추가 끝
