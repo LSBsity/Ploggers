@@ -91,6 +91,7 @@ public class PostController {
             @RequestBody @Valid PostCommentRequestDto request,
             @AuthenticationPrincipal String email
     ) {
+        System.out.println("postId = " + postId);
         return postService.postComment(request, postId, email);
     }
 
