@@ -15,6 +15,6 @@ public class HealthCheck {
     @GetMapping("")
     public ResponseEntity<String> healthCheck() {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(LocalDateTime.now().toString());
+                .body("Current Time is " + LocalDateTime.now());
     }
 }
