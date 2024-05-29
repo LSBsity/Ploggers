@@ -46,7 +46,7 @@ public class WebSecurityConfig {
                 )
                 .authorizeHttpRequests(request -> request  // HTTP 요청에 대한 인가 규칙을 설정합니다.
                         .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()  // 특정 경로에 대한 접근을 허용합니다.
-                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/**", "/api/v1/user/*").permitAll()  // GET 메서드에 대한 특정 경로 접근을 허용합니다.
+                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/**", "/api/v1/user/*", "/check").permitAll()  // GET 메서드에 대한 특정 경로 접근을 허용합니다.
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/posts/*/viewCount").permitAll()
                         .anyRequest().authenticated()  // 그 외 모든 요청은 인증을 요구합니다.
                 )
