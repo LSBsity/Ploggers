@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.6'
     id 'io.spring.dependency-management' version '1.1.5'
-//    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'coderookie'
@@ -32,11 +31,19 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //JWT
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
 
     implementation 'commons-io:commons-io:2.11.0'    /* Apache commons-io */
     implementation 'commons-fileupload:commons-fileupload:1.5'
 
+    //swagger
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+
+    //p6spy
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
 
     // ⭐ Spring boot 3.x이상에서 QueryDsl 패키지를 정의하는 방법
