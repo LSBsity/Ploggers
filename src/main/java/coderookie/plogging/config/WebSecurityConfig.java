@@ -25,37 +25,38 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-@Configuration  // 이 클래스가 스프링 설정 클래스임을 나타냅니다.
-@EnableWebSecurity  // 웹 보안을 활성화합니다.
-@RequiredArgsConstructor  // Lombok을 사용하여 final 필드에 대한 생성자를 자동으로 생성합니다.
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;  // JWT 인증 필터를 주입받습니다.
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
 
     @Bean
-    protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {  // 보안 필터 체인을 구성하는 메서드입니다.
+    public SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors(cors -> cors  // CORS 설정을 구성합니다.
+                .cors(cors -> cors  // CORS 설정을 구성
                         .configurationSource(corsConfigurationSource())
                 )
-                .csrf(AbstractHttpConfigurer::disable)  // CSRF 보호를 비활성화합니다.
-                .httpBasic(AbstractHttpConfigurer::disable)  // HTTP Basic 인증을 비활성화합니다.
-                .sessionManagement(sessionManageMent -> sessionManageMent  // 세션 관리 설정을 구성합니다.
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // 세션을 상태없음(stateless)으로 설정합니다.
+                .csrf(AbstractHttpConfigurer::disable)  // CSRF 보호를 비활성화
+                .httpBasic(AbstractHttpConfigurer::disable)  // HTTP Basic 인증을 비활성화
+                .sessionManagement(sessionManageMent -> sessionManageMent  // 세션 관리 설정을 구성
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // 세션을 상태없음(stateless)으로 설정
                 )
-                .authorizeHttpRequests(request -> request  // HTTP 요청에 대한 인가 규칙을 설정합니다.
-                        .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()  // 특정 경로에 대한 접근을 허용합니다.
-                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/**", "/api/v1/user/*", "/check").permitAll()  // GET 메서드에 대한 특정 경로 접근을 허용합니다.
+                .authorizeHttpRequests(request -> request  // HTTP 요청에 대한 인가 규칙을 설정
+                        .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**",
+                                "/swagger-ui/**", "/v3/api-docs/**").permitAll()  // 특정 경로에 대한 접근을 허용
+                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/**", "/api/v1/user/*", "/check").permitAll()  // GET 메서드에 대한 특정 경로 접근을 허용
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/posts/*/viewCount").permitAll()
-                        .anyRequest().authenticated()  // 그 외 모든 요청은 인증을 요구합니다.
+                        .anyRequest().authenticated()  // 그 외 모든 요청은 인증을 요구
                 )
-                .exceptionHandling(exceptionHandling -> exceptionHandling  // 예외 처리 설정을 구성합니다.
-                        .authenticationEntryPoint(new FailedAuthenticationEntryPoint())  // 인증 실패 시의 엔트리 포인트를 설정합니다.
+                .exceptionHandling(exceptionHandling -> exceptionHandling  // 예외 처리 설정을 구성
+                        .authenticationEntryPoint(new FailedAuthenticationEntryPoint())  // 인증 실패 시의 엔트리 포인트를 설정
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);  // JWT 인증 필터를 UsernamePasswordAuthenticationFilter 앞에 추가합니다.
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);  // JWT 인증 필터를 UsernamePasswordAuthenticationFilter 앞에 추가
 
-        return httpSecurity.build();  // 보안 필터 체인을 빌드합니다.
+        return httpSecurity.build();  // 보안 필터 체인을 빌드
     }
 
     static class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint {  // 인증 실패 시의 동작을 정의하는 클래스입니다.
@@ -64,19 +65,21 @@ public class WebSecurityConfig {
         public void commence(HttpServletRequest request, HttpServletResponse response,
                              AuthenticationException authException) throws IOException, ServletException {
 
-            response.setContentType("application/json");  // 응답의 콘텐츠 타입을 JSON으로 설정합니다.
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);  // 응답 상태 코드를 403 (Forbidden)으로 설정합니다.
+            response.setContentType("application/json");  // 응답의 콘텐츠 타입을 JSON으로 설정
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);  // 응답 상태 코드를 403 (Forbidden)으로 설정
             response.getWriter().write("{ \"code\": \"NP\", \"message\": \"Do not have permission.\" }");  // 응답 본문에 JSON 형식의 에러 메시지를 씁니다.
         }
     }
 
     @Bean
-    protected CorsConfigurationSource corsConfigurationSource() {  // CORS 설정을 구성하는 메서드입니다.
+    public CorsConfigurationSource corsConfigurationSource() {  // CORS 설정을 구성하는 메서드입니다.
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.applyPermitDefaultValues();
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Authorization-refresh", "Cache-Control", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 }
