@@ -49,16 +49,22 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Image> images = new ArrayList<>();
 
-    public void increaseCommentCount() {
-        this.commentCount++;
-    }
-
     public void increaseViewCount() {
         this.viewCount++;
     }
 
+    public void increaseCommentCount() {
+        this.commentCount++;
+    }
+
     public void increaseLikesCount() {
         this.likesCount++;
+    }
+
+    public void decreaseCommentCount() {
+        if (this.commentCount >= 1) {
+            this.commentCount--;
+        }
     }
 
     public void decreaseLikesCount() {

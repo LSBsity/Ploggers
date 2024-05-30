@@ -2,7 +2,6 @@ package coderookie.plogging.service.implement;
 
 import coderookie.plogging.dto.request.auth.SignInRequestDto;
 import coderookie.plogging.dto.request.auth.SignUpRequestDto;
-import coderookie.plogging.dto.response.ResponseDto;
 import coderookie.plogging.dto.response.auth.SignInResponseDto;
 import coderookie.plogging.dto.response.auth.SignUpResponseDto;
 import coderookie.plogging.domain.User;
@@ -14,11 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
@@ -26,6 +27,7 @@ public class AuthServiceImpl implements AuthService {
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
+    @Transactional
     public ResponseEntity<? super SignUpResponseDto> signUp(SignUpRequestDto dto) {
 
         String email = dto.getEmail();
@@ -47,6 +49,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
 
         String email = dto.getEmail();
@@ -60,7 +63,6 @@ public class AuthServiceImpl implements AuthService {
         if (!isMatched) return SignInResponseDto.signInFailed();
 
         String token = jwtProvider.create(email);
-
 
         return SignInResponseDto.success(token);
     }

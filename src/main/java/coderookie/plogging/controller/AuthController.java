@@ -27,10 +27,10 @@ public class AuthController {
             description = "이메일과 비밀번호를 입력하여 회원가입")
     @PostMapping("/sign-up")
     public ResponseEntity<? super SignUpResponseDto> signUp(
-            @RequestBody @Valid SignUpRequestDto requestDto
+            @RequestBody @Valid SignUpRequestDto request
     ) {
 
-        return authService.signUp(requestDto);
+        return authService.signUp(request);
     }
 
 
