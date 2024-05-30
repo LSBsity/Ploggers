@@ -1,11 +1,13 @@
 package coderookie.plogging.controller;
 
+import coderookie.plogging.dto.request.user.ChangePasswordRequestDto;
 import coderookie.plogging.dto.request.post.EditNicknameRequestDto;
 import coderookie.plogging.dto.request.post.EditProfileImageRequestDto;
+import coderookie.plogging.dto.request.user.DeleteUserRequestDto;
+import coderookie.plogging.dto.response.ResponseDto;
+import coderookie.plogging.dto.response.user.*;
 import coderookie.plogging.dto.response.post.EditNicknameResponseDto;
-import coderookie.plogging.dto.response.user.EditProfileImageResponseDto;
-import coderookie.plogging.dto.response.user.GetSigninUserResponseDto;
-import coderookie.plogging.dto.response.user.GetUserResponseDto;
+import coderookie.plogging.service.AuthService;
 import coderookie.plogging.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -61,5 +63,26 @@ public class UserController {
         return userService.editProfileImage(request, email);
     }
 
+    @Operation(summary = "비밀번호 변경",
+            description = "가입 시 작성한 비밀번호와 새로운 비밀번호를 입력하여 회원가입")
+    @PostMapping("/password")
+    public ResponseEntity<? super ChangePasswordResponseDto> changePassword(
+            @RequestBody @Valid ChangePasswordRequestDto request,
+            @AuthenticationPrincipal String email
+    ) {
+
+        return userService.ChangePassword(request, email);
+    }
+
+    @Operation(summary = "회원 탈퇴",
+            description = "회원과 관련된 모든 댓글,좋아요,게시글 데이터를 삭제")
+    @DeleteMapping("/delete")
+    public ResponseEntity<? super DeleteUserResponseDto> deleteUser(
+            @RequestBody @Valid DeleteUserRequestDto request,
+            @AuthenticationPrincipal String email
+    ) {
+
+        return userService.deleteUser(request, email);
+    }
 
 }
