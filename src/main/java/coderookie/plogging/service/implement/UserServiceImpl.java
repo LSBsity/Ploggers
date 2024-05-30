@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public ResponseEntity<? super ChangePasswordResponseDto> ChangePassword(ChangePasswordRequestDto dto, String email) {
+    public ResponseEntity<? super ChangePasswordResponseDto> changePassword(ChangePasswordRequestDto dto, String email) {
 
         Optional<User> findUser = userRepository.findById(email);
         if (findUser.isEmpty()) return ChangePasswordResponseDto.noExistUser();

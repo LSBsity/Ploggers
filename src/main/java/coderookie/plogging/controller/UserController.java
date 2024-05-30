@@ -4,10 +4,8 @@ import coderookie.plogging.dto.request.user.ChangePasswordRequestDto;
 import coderookie.plogging.dto.request.post.EditNicknameRequestDto;
 import coderookie.plogging.dto.request.post.EditProfileImageRequestDto;
 import coderookie.plogging.dto.request.user.DeleteUserRequestDto;
-import coderookie.plogging.dto.response.ResponseDto;
 import coderookie.plogging.dto.response.user.*;
 import coderookie.plogging.dto.response.post.EditNicknameResponseDto;
-import coderookie.plogging.service.AuthService;
 import coderookie.plogging.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -65,13 +63,13 @@ public class UserController {
 
     @Operation(summary = "비밀번호 변경",
             description = "가입 시 작성한 비밀번호와 새로운 비밀번호를 입력하여 회원가입")
-    @PostMapping("/password")
+    @PatchMapping("/password")
     public ResponseEntity<? super ChangePasswordResponseDto> changePassword(
             @RequestBody @Valid ChangePasswordRequestDto request,
             @AuthenticationPrincipal String email
     ) {
 
-        return userService.ChangePassword(request, email);
+        return userService.changePassword(request, email);
     }
 
     @Operation(summary = "회원 탈퇴",
