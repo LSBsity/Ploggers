@@ -15,7 +15,6 @@ public interface ResponseCode {
 
     // HTTP Status 401
     String SIGN_IN_FAIL = "SF";
-    String AUTHORIZATION_FAIL = "AF";
 
     // HTTP Status 403
     String NO_PERMISSION = "NP";
