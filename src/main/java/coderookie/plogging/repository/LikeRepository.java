@@ -1,6 +1,7 @@
 package coderookie.plogging.repository;
 
 import coderookie.plogging.domain.Like;
+import coderookie.plogging.domain.User;
 import coderookie.plogging.repository.resultset.GetLikersResultSet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,7 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
             " join l.user u" +
             " where l.post.id = :postId")
     List<GetLikersResultSet> getLikersList(@Param("postId") Long postId);
+
+    @Query("select l from Like l join fetch l.post where l.user = :user")
+    List<Like> findAllByUser(@Param("user") User user);
 }

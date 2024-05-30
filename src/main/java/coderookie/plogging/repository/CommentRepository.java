@@ -1,6 +1,7 @@
 package coderookie.plogging.repository;
 
 import coderookie.plogging.domain.Comment;
+import coderookie.plogging.domain.User;
 import coderookie.plogging.repository.resultset.GetCommentListResultSet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +20,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             " where c.post.id = :postId" +
             " order by c.createdTime desc")
     List<GetCommentListResultSet> getCommentList(@Param("postId") Long postId);
+
+    @Query("select c from Comment c join fetch c.post where c.user = :user")
+    List<Comment> findAllByUser(@Param("user") User user);
 }
+

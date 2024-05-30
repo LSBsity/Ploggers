@@ -1,6 +1,7 @@
 package coderookie.plogging.repository;
 
 import coderookie.plogging.domain.Post;
+import coderookie.plogging.domain.User;
 import coderookie.plogging.dto.object.PostMainResponse;
 import coderookie.plogging.dto.object.PostResponse;
 import coderookie.plogging.repository.resultset.GetPostResultSet;
@@ -41,4 +42,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             " join p.user u" +
             " order by p.createdTime desc")
     List<PostResponse> findByUserEmail(String email);
+
+    @Query("select p from Post p join fetch p.images where p.user = :user")
+    List<Post> findAllByUser(@Param("user") User user);
 }
