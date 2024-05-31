@@ -31,6 +31,8 @@ public interface PostService {
 
     ResponseEntity<? super EditCommentResponseDto> editComment(Long postId, Long commentId, String email, EditCommentRequestDto request);
 
+    ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Long postId, Long commentId, String email);
+
     ResponseEntity<? super GetCommentListResponseDto> getCommentList(Long postId);
 
     ResponseEntity<? super DeletePostResponseDto> deletePost(Long postId, String email);

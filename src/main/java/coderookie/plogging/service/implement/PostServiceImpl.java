@@ -94,6 +94,29 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
+    public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(Long postId,
+                                                                          Long commentId,
+                                                                          String email
+    ) {
+        Optional<Post> findPost = postRepository.findById(postId);
+        if (findPost.isEmpty()) return EditCommentResponseDto.noExistPost();
+        Post post = findPost.get();
+
+        Optional<User> findUser = userRepository.findById(email);
+        if (findUser.isEmpty()) return EditCommentResponseDto.noExistUser();
+
+        Optional<Comment> findComment = commentRepository.findById(commentId);
+        if (findComment.isEmpty()) return EditCommentResponseDto.noExistComment();
+
+        commentRepository.deleteById(commentId);
+        post.decreaseCommentCount();
+
+        return DeleteCommentResponseDto.success();
+
+    }
+
+    @Override
     public ResponseEntity<? super GetCommentListResponseDto> getCommentList(Long postId) {
 
         Optional<Post> findPost = postRepository.findById(postId);

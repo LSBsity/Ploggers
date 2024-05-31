@@ -55,6 +55,17 @@ public class PostController {
         return postService.editComment(postId, commentId, email, request);
     }
 
+    @Operation(
+            summary = "게시물 댓글 삭제"
+            , description = "path로 주어진 postId, commentId를 통해 게시물의 댓글을 삭제")
+    @DeleteMapping("/{postId}/editComment/{commentId}")
+    public ResponseEntity<? super DeleteCommentResponseDto> deleteComment(@PathVariable("postId") Long postId,
+                                                                          @PathVariable("commentId") Long commentId,
+                                                                          @AuthenticationPrincipal String email
+    ) {
+        return postService.deleteComment(postId, commentId, email);
+    }
+
 
     @Operation(
             summary = "좋아요를 누른 사용자 정보 가져오기"
@@ -120,7 +131,6 @@ public class PostController {
                                                                   @RequestBody @Valid PostCommentRequestDto request,
                                                                   @AuthenticationPrincipal String email
     ) {
-        System.out.println("postId = " + postId);
         return postService.postComment(request, postId, email);
     }
 
