@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static coderookie.plogging.domain.QImage.*;
 import static coderookie.plogging.domain.QPost.*;
 import static coderookie.plogging.domain.QUser.*;
 
@@ -25,7 +26,6 @@ public class PostQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     public List<PostMainResponse> findByCond(SearchCond searchCond, Pageable pageable) {
-        QImage image1 = QImage.image1;
 
         JPQLQuery<Long> getTitleImage = JPAExpressions
                 .select(image1.id.min())
@@ -55,7 +55,6 @@ public class PostQueryRepository {
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
-
     }
 
     private BooleanExpression eqKeyword(SearchCond searchEnum) {
@@ -65,22 +64,18 @@ public class PostQueryRepository {
         }
 
         if (searchEnum.getSearchEnum() == null && searchEnum.getWord() != null) {
-            System.out.println("1");
             return post.title.contains(searchEnum.getWord()).or(post.content.contains(searchEnum.getWord()));
         }
 
         if (searchEnum.getSearchEnum().equals(SearchEnum.NICKNAME)) {
-            System.out.println("2");
             return post.user.nickname.eq(searchEnum.getWord());
         }
 
         if (searchEnum.getSearchEnum().equals(SearchEnum.TITLE)) {
-            System.out.println("3");
             return post.title.contains(searchEnum.getWord());
         }
 
         if (searchEnum.getSearchEnum().equals(SearchEnum.CONTENT)) {
-            System.out.println("4");
             return post.content.contains(searchEnum.getWord());
         }
 
