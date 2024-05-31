@@ -1,6 +1,7 @@
 package coderookie.plogging.domain;
 
 import coderookie.plogging.dto.request.auth.SignUpRequestDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,17 +20,16 @@ public class User {
     @Column(name = "user_email")
     private String email;
 
-    private String password;
-
     private String nickname;
+
+    private String password;
 
     private String name;
 
-    private int level;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime createdTime;
 
     private String profileImage;
-
-    private LocalDateTime createdTime;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Like> likes = new ArrayList<>();
@@ -53,7 +53,6 @@ public class User {
         this.password = dto.getPassword();
         this.nickname = dto.getNickname();
         this.name = dto.getName();
-        this.level = 0;
         this.createdTime = LocalDateTime.now();
     }
 

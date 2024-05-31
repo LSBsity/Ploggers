@@ -7,6 +7,7 @@ import coderookie.plogging.domain.Image;
 import coderookie.plogging.domain.Post;
 import coderookie.plogging.dto.response.ResponseDto;
 import coderookie.plogging.repository.resultset.GetPostResultSet;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,8 @@ public class GetPostResponseDto extends ResponseDto {
     private String content;
     private Category category;
     private List<String> boardImageList;
-    private LocalDateTime createTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime createdTime;
     private String writerNickName;
     private String writerProfileImage;
 
@@ -42,7 +44,7 @@ public class GetPostResponseDto extends ResponseDto {
         this.content = post.getContent();
         this.category = post.getCategory();
         this.boardImageList = postImageList;
-        this.createTime = post.getCreatedTime();
+        this.createdTime = post.getCreatedTime();
         this.writerNickName = resultSet.getNickname();
         this.writerProfileImage = resultSet.getProfileImage();
     }

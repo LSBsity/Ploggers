@@ -1,6 +1,7 @@
 package coderookie.plogging.dto.object;
 
 import coderookie.plogging.domain.Category;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +19,14 @@ public class PostMainResponse {
     private int viewCount;
     private int likesCount;
     private int commentCount;
-    private LocalDateTime createTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime createdTime;
     private String writerNickname;
     private String writerProfileImage;
 
     @QueryProjection
 
-    public PostMainResponse(Long postId, String title, String titleImage, Category category, int viewCount, int likesCount, int commentCount, LocalDateTime createTime, String writerNickname, String writerProfileImage) {
+    public PostMainResponse(Long postId, String title, String titleImage, Category category, int viewCount, int likesCount, int commentCount, LocalDateTime createdTime, String writerNickname, String writerProfileImage) {
         this.postId = postId;
         this.title = title;
         this.titleImage = titleImage;
@@ -32,7 +34,7 @@ public class PostMainResponse {
         this.viewCount = viewCount;
         this.likesCount = likesCount;
         this.commentCount = commentCount;
-        this.createTime = createTime;
+        this.createdTime = createdTime;
         this.writerNickname = writerNickname;
         this.writerProfileImage = writerProfileImage;
     }

@@ -2,6 +2,7 @@ package coderookie.plogging.domain;
 
 import coderookie.plogging.dto.request.post.EditCommentRequestDto;
 import coderookie.plogging.dto.request.post.PostCommentRequestDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +31,7 @@ public class Comment {
 
     private String comment;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdTime;
 
     public Comment(Post post, User user, PostCommentRequestDto dto) {

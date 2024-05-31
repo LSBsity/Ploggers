@@ -3,6 +3,7 @@ package coderookie.plogging.domain;
 import coderookie.plogging.common.SearchEnum;
 import coderookie.plogging.dto.request.post.EditPostRequestDto;
 import coderookie.plogging.dto.request.post.PostRequestDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,7 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private Category category;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdTime;
 
     private int likesCount;
