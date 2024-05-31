@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
-@Tag(name = "Health Check Controller", description = "서버가 실행되고 있는 지 확인하는 곳")
+@Tag(name = "Health Check Controller", description = "서버가 제대로 실행되고 있는지 확인하는 곳")
 @RestController
 @RequestMapping("/check")
 public class HealthCheck {

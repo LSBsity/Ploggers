@@ -26,10 +26,8 @@ public class AuthController {
     @Operation(summary = "회원 가입",
             description = "이메일과 비밀번호를 입력하여 회원가입")
     @PostMapping("/sign-up")
-    public ResponseEntity<? super SignUpResponseDto> signUp(
-            @RequestBody @Valid SignUpRequestDto request
+    public ResponseEntity<? super SignUpResponseDto> signUp(@RequestBody @Valid SignUpRequestDto request
     ) {
-
         return authService.signUp(request);
     }
 
@@ -37,10 +35,8 @@ public class AuthController {
     @Operation(summary = "로그인",
             description = "가입 시 작성한 이메일과 비밀번호를 입력하여 회원가입")
     @PostMapping("/sign-in")
-    public ResponseEntity<? super SignInResponseDto> signIn(
-            @RequestBody @Valid SignInRequestDto request
+    public ResponseEntity<? super SignInResponseDto> signIn(@RequestBody @Valid SignInRequestDto request
     ) {
-
         return authService.signIn(request);
     }
 
