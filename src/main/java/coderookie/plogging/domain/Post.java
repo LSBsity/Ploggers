@@ -1,6 +1,7 @@
 package coderookie.plogging.domain;
 
 import coderookie.plogging.common.SearchEnum;
+import coderookie.plogging.dto.request.post.EditPostRequestDto;
 import coderookie.plogging.dto.request.post.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -71,6 +72,12 @@ public class Post {
         if (this.likesCount >= 1) {
             this.likesCount--;
         }
+    }
+
+    public void editPost(EditPostRequestDto dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+        this.category = dto.getCategory();
     }
 
     public Post(User user, PostRequestDto dto) {

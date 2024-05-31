@@ -1,5 +1,6 @@
 package coderookie.plogging.domain;
 
+import coderookie.plogging.dto.request.post.EditCommentRequestDto;
 import coderookie.plogging.dto.request.post.PostCommentRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,4 +38,9 @@ public class Comment {
         this.comment = dto.getContent();
         this.createdTime = LocalDateTime.now();
     }
+
+    public void changeComment(EditCommentRequestDto dto) {
+        this.comment = dto.getComment();
+    }
+
 }

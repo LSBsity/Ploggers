@@ -1,5 +1,6 @@
 package coderookie.plogging.service;
 
+import coderookie.plogging.dto.request.post.EditCommentRequestDto;
 import coderookie.plogging.dto.request.post.EditPostRequestDto;
 import coderookie.plogging.dto.request.post.PostCommentRequestDto;
 import coderookie.plogging.dto.request.post.PostRequestDto;
@@ -28,9 +29,12 @@ public interface PostService {
 
     ResponseEntity<? super PostCommentResponseDto> postComment(PostCommentRequestDto dto, Long postId, String email);
 
+    ResponseEntity<? super EditCommentResponseDto> editComment(Long postId, Long commentId, String email, EditCommentRequestDto request);
+
     ResponseEntity<? super GetCommentListResponseDto> getCommentList(Long postId);
 
     ResponseEntity<? super DeletePostResponseDto> deletePost(Long postId, String email);
 
     ResponseEntity<? super GetPostMainResponseDto> getMainPosts(SearchCond searchCond, Pageable pageable);
+
 }

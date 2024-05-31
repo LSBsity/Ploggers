@@ -3,6 +3,7 @@ package coderookie.plogging.service.implement;
 import coderookie.plogging.domain.*;
 import coderookie.plogging.dto.object.PostMainResponse;
 import coderookie.plogging.dto.object.PostResponse;
+import coderookie.plogging.dto.request.post.EditCommentRequestDto;
 import coderookie.plogging.dto.request.post.EditPostRequestDto;
 import coderookie.plogging.dto.request.post.PostCommentRequestDto;
 import coderookie.plogging.dto.request.post.PostRequestDto;
@@ -51,8 +52,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public ResponseEntity<? super PostCommentResponseDto> postComment(PostCommentRequestDto dto, Long postId, String email) {
-
+    public ResponseEntity<? super PostCommentResponseDto> postComment(PostCommentRequestDto dto,
+                                                                      Long postId,
+                                                                      String email
+    ) {
         Optional<Post> findPost = postRepository.findById(postId);
         if (findPost.isEmpty()) return PostCommentResponseDto.noExistPost();
         Post post = findPost.get();
@@ -69,6 +72,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
+    public ResponseEntity<? super EditCommentResponseDto> editComment(Long postId,
+                                                                      Long commentId,
+                                                                      String email,
+                                                                      EditCommentRequestDto request
+    ) {
+        Optional<Post> findPost = postRepository.findById(postId);
+        if (findPost.isEmpty()) return EditCommentResponseDto.noExistPost();
+
+        Optional<User> findUser = userRepository.findById(email);
+        if (findUser.isEmpty()) return EditCommentResponseDto.noExistUser();
+
+        Optional<Comment> findComment = commentRepository.findById(commentId);
+        if (findComment.isEmpty()) return EditCommentResponseDto.noExistComment();
+        Comment comment = findComment.get();
+
+        comment.changeComment(request);
+
+        return EditCommentResponseDto.success();
+    }
+
+    @Override
     public ResponseEntity<? super GetCommentListResponseDto> getCommentList(Long postId) {
 
         Optional<Post> findPost = postRepository.findById(postId);
@@ -81,8 +106,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public ResponseEntity<? super DeletePostResponseDto> deletePost(Long postId, String email) {
-
+    public ResponseEntity<? super DeletePostResponseDto> deletePost(Long postId,
+                                                                    String email
+    ) {
         Optional<User> findUser = userRepository.findById(email);
         if (findUser.isEmpty()) return DeletePostResponseDto.noExistUser();
 
@@ -99,8 +125,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public ResponseEntity<? super GetPostMainResponseDto> getMainPosts(SearchCond searchCond, Pageable pageable) {
-
+    public ResponseEntity<? super GetPostMainResponseDto> getMainPosts(SearchCond searchCond,
+                                                                       Pageable pageable
+    ) {
         List<PostMainResponse> resultSets = postQueryRepository.findByCond(searchCond, pageable);
 
         return GetPostMainResponseDto.success(resultSets);
@@ -108,8 +135,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public ResponseEntity<? super PutPostLikesResponseDto> putLikes(Long postId, String email) {
-
+    public ResponseEntity<? super PutPostLikesResponseDto> putLikes(Long postId,
+                                                                    String email
+    ) {
         Optional<User> findUser = userRepository.findById(email);
         if (findUser.isEmpty()) return PutPostLikesResponseDto.noExistUser();
         User user = findUser.get();
@@ -153,8 +181,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public ResponseEntity<? super EditPostResponseDto> editPost(EditPostRequestDto request, Long postId, String requestEmail) {
-
+    public ResponseEntity<? super EditPostResponseDto> editPost(EditPostRequestDto request,
+                                                                Long postId,
+                                                                String requestEmail
+    ) {
         Optional<Post> findPost = postRepository.findById(postId);
         if (findPost.isEmpty()) return EditPostResponseDto.noExistPost();
         Post post = findPost.get();
@@ -165,15 +195,13 @@ public class PostServiceImpl implements PostService {
         String writerEmail = post.getUser().getEmail();
         if (!writerEmail.equals(requestEmail)) return EditPostResponseDto.noPermission();
 
-        post.setTitle(request.getTitle());
-        post.setContent(request.getContent());
+        post.editPost(request);
 
         imageRepository.deleteByPostId(postId);
         List<Image> newImages = request.getPostImageList()
                 .stream()
                 .map(i -> new Image(post, i))
                 .collect(Collectors.toList());
-
         imageRepository.saveAll(newImages);
 
         return EditPostResponseDto.success();
@@ -205,8 +233,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public ResponseEntity<? super PostResponseDto> posting(PostRequestDto dto, String email) {
-
+    public ResponseEntity<? super PostResponseDto> posting(PostRequestDto dto,
+                                                           String email
+    ) {
         Optional<User> findUser = userRepository.findById(email);
         if (findUser.isEmpty()) return PostResponseDto.noExistUser();
         User user = findUser.get();
