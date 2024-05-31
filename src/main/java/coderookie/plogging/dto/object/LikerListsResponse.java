@@ -11,21 +11,21 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikerLists {
+public class LikerListsResponse {
 
     private String email;
     private String nickname;
     private String profileImage;
 
-    public LikerLists(GetLikersResultSet likerLists) {
+    public LikerListsResponse(GetLikersResultSet likerLists) {
         this.email = likerLists.getEmail();
         this.nickname = likerLists.getNickname();
         this.profileImage = likerLists.getProfileImage();
     }
 
-    public static List<LikerLists> copyList(List<GetLikersResultSet> resultSets) {
+    public static List<LikerListsResponse> copyList(List<GetLikersResultSet> resultSets) {
         return resultSets.stream()
-                .map(LikerLists::new)
+                .map(LikerListsResponse::new)
                 .collect(Collectors.toList());
     }
 

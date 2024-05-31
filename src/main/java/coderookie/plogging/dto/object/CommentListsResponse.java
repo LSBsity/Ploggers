@@ -13,24 +13,24 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentLists {
+public class CommentListsResponse {
 
     private String nickname;
     private String profileImage;
     private LocalDateTime createdTime;
     private String comment;
 
-    public CommentLists(GetCommentListResultSet resultSet) {
+    public CommentListsResponse(GetCommentListResultSet resultSet) {
         this.nickname = resultSet.getNickname();
         this.profileImage = resultSet.getProfileImage();
         this.createdTime = resultSet.getCreatedTime();
         this.comment = resultSet.getComment();
     }
 
-    public static List<CommentLists> copyList(List<GetCommentListResultSet> resultSets) {
+    public static List<CommentListsResponse> copyList(List<GetCommentListResultSet> resultSets) {
         return resultSets
                 .stream()
-                .map(CommentLists::new)
+                .map(CommentListsResponse::new)
                 .collect(Collectors.toList());
     }
 }

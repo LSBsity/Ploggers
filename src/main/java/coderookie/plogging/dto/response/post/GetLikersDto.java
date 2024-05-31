@@ -3,7 +3,7 @@ package coderookie.plogging.dto.response.post;
 
 import coderookie.plogging.common.ResponseCode;
 import coderookie.plogging.common.ResponseMessage;
-import coderookie.plogging.dto.object.LikerLists;
+import coderookie.plogging.dto.object.LikerListsResponse;
 import coderookie.plogging.dto.response.ResponseDto;
 import coderookie.plogging.repository.resultset.GetLikersResultSet;
 import lombok.Getter;
@@ -15,11 +15,11 @@ import java.util.List;
 @Getter
 public class GetLikersDto extends ResponseDto {
 
-    private List<LikerLists> likeLists;
+    private List<LikerListsResponse> likeLists;
 
     private GetLikersDto(List<GetLikersResultSet> resultSets) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.likeLists = LikerLists.copyList(resultSets);
+        this.likeLists = LikerListsResponse.copyList(resultSets);
     }
 
     public static ResponseEntity<GetLikersDto> success(List<GetLikersResultSet> resultSets) {

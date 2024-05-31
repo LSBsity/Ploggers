@@ -2,7 +2,7 @@ package coderookie.plogging.dto.response.post;
 
 import coderookie.plogging.common.ResponseCode;
 import coderookie.plogging.common.ResponseMessage;
-import coderookie.plogging.dto.object.CommentLists;
+import coderookie.plogging.dto.object.CommentListsResponse;
 import coderookie.plogging.dto.response.ResponseDto;
 import coderookie.plogging.repository.resultset.GetCommentListResultSet;
 import lombok.Getter;
@@ -14,11 +14,11 @@ import java.util.List;
 @Getter
 public class GetCommentListResponseDto extends ResponseDto {
 
-    private List<CommentLists> commentLists;
+    private List<CommentListsResponse> commentLists;
 
     private GetCommentListResponseDto(List<GetCommentListResultSet> resultSets) {
         super(ResponseCode.SUCCESS, ResponseCode.SUCCESS);
-        this.commentLists = CommentLists.copyList(resultSets);
+        this.commentLists = CommentListsResponse.copyList(resultSets);
     }
 
     public static ResponseEntity<? super GetCommentListResponseDto> success(List<GetCommentListResultSet> resultSets) {
