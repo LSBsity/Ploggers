@@ -18,6 +18,7 @@ public class CommentListsResponse {
 
     private String nickname;
     private String profileImage;
+    private String writerEmail;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdTime;
     private Long commentId;
@@ -26,6 +27,7 @@ public class CommentListsResponse {
     public CommentListsResponse(GetCommentListResultSet resultSet) {
         this.nickname = resultSet.getNickname();
         this.profileImage = resultSet.getProfileImage();
+        this.writerEmail = resultSet.getWriterEmail();
         this.commentId = resultSet.getCommentId();
         this.createdTime = resultSet.getCreatedTime();
         this.comment = resultSet.getComment();

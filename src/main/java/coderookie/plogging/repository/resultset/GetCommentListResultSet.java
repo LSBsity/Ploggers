@@ -14,6 +14,7 @@ public class GetCommentListResultSet {
 
     private String nickname;
     private String profileImage;
+    private String writerEmail;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdTime;
     private Long commentId;
