@@ -40,8 +40,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             " p.category, p.viewCount, p.likesCount, p.commentCount, p.createdTime, u.email, u.nickname, u.profileImage)" +
             " from Post p" +
             " join p.user u" +
+            " where p.user.email = :email" +
             " order by p.createdTime desc")
-    List<PostResponse> findByUserEmail(String email);
+    List<PostResponse> findByUserEmail(@Param("email") String email);
 
     @Query("select p from Post p join fetch p.images where p.user = :user")
     List<Post> findAllByUser(@Param("user") User user);
