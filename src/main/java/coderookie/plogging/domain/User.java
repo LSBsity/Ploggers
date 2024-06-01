@@ -24,6 +24,8 @@ public class User {
 
     private String password;
 
+    int level;
+
     private String name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
