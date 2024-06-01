@@ -38,7 +38,7 @@ public class Comment {
         this.post = post;
         this.user = user;
         this.comment = dto.getContent();
-        this.createdTime = LocalDateTime.now();
+        this.createdTime = LocalDateTime.now().plusHours(9);
     }
 
     public void changeComment(EditCommentRequestDto dto) {

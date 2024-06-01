@@ -55,7 +55,7 @@ public class User {
         this.password = dto.getPassword();
         this.nickname = dto.getNickname();
         this.name = dto.getName();
-        this.createdTime = LocalDateTime.now();
+        this.createdTime = LocalDateTime.now().plusHours(9);
     }
 
 }

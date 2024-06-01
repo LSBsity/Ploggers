@@ -87,7 +87,7 @@ public class Post {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.category = dto.getCategory();
-        this.createdTime = LocalDateTime.now();
+        this.createdTime = LocalDateTime.now().plusHours(9);
         this.likesCount = 0;
         this.commentCount = 0;
         this.viewCount = 0;
