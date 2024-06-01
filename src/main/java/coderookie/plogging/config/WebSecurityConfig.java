@@ -46,7 +46,7 @@ public class WebSecurityConfig {
                 )
                 .authorizeHttpRequests(request -> request  // HTTP 요청에 대한 인가 규칙을 설정
                         .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**",
-                                "/swagger-ui/**", "/v3/api-docs/**").permitAll()  // 특정 경로에 대한 접근을 허용
+                                "/swagger-ui/**", "/v3/api-docs/**", "/monitor/**").permitAll()  // 특정 경로에 대한 접근을 허용
                         .requestMatchers(HttpMethod.GET, "/api/v1/posts/**", "/api/v1/user/*", "/check").permitAll()  // GET 메서드에 대한 특정 경로 접근을 허용
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/posts/*/viewCount").permitAll()
                         .anyRequest().authenticated()  // 그 외 모든 요청은 인증을 요구
@@ -63,7 +63,7 @@ public class WebSecurityConfig {
 
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response,
-                             AuthenticationException authException) throws IOException, ServletException {
+                             AuthenticationException authException) throws IOException {
 
             response.setContentType("application/json");  // 응답의 콘텐츠 타입을 JSON으로 설정
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);  // 응답 상태 코드를 403 (Forbidden)으로 설정
