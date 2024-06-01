@@ -19,8 +19,8 @@ import java.util.Optional;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("select new coderookie.plogging.repository.resultset.GetPostResultSet" +
-            "(p, u.nickname, u.profileImage, p.category)" +
-            " from Post p join p.user u where p.id = :postId")
+            "(p, u.nickname, u.profileImage, u.email, p.category)" +
+            " from Post p join fetch p.user u where p.id = :postId")
     GetPostResultSet getPostWithUser(@Param("postId") Long postId);
 
     Optional<Post> findById(Long postId);

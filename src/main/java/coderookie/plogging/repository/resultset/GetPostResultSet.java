@@ -15,5 +15,6 @@ public class GetPostResultSet {
     private Post post;
     private String nickname;
     private String profileImage;
+    private String userEmail;
     private Category category;
 }

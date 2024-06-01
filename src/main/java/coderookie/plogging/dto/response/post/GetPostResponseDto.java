@@ -26,6 +26,7 @@ public class GetPostResponseDto extends ResponseDto {
     private List<String> boardImageList;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdTime;
+    private String writerEmail;
     private String writerNickName;
     private String writerProfileImage;
 
@@ -45,6 +46,7 @@ public class GetPostResponseDto extends ResponseDto {
         this.category = post.getCategory();
         this.boardImageList = postImageList;
         this.createdTime = post.getCreatedTime();
+        this.writerEmail = resultSet.getUserEmail();
         this.writerNickName = resultSet.getNickname();
         this.writerProfileImage = resultSet.getProfileImage();
     }
