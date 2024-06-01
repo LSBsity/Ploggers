@@ -14,7 +14,7 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Query("select new coderookie.plogging.repository.resultset.GetCommentListResultSet" +
-            "(u.nickname, u.profileImage, c.createdTime, c.comment)" +
+            "(u.nickname, u.profileImage, c.createdTime, c.id, c.comment)" +
             " from Comment c" +
             " join c.user u" +
             " where c.post.id = :postId" +

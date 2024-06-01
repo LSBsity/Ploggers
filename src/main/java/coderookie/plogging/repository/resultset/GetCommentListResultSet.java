@@ -16,6 +16,7 @@ public class GetCommentListResultSet {
     private String profileImage;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdTime;
+    private Long commentId;
     private String comment;
 
 }

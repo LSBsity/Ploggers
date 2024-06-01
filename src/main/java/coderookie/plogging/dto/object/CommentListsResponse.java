@@ -20,11 +20,13 @@ public class CommentListsResponse {
     private String profileImage;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdTime;
+    private Long commentId;
     private String comment;
 
     public CommentListsResponse(GetCommentListResultSet resultSet) {
         this.nickname = resultSet.getNickname();
         this.profileImage = resultSet.getProfileImage();
+        this.commentId = resultSet.getCommentId();
         this.createdTime = resultSet.getCreatedTime();
         this.comment = resultSet.getComment();
     }
