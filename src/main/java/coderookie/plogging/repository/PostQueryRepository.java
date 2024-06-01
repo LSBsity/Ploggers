@@ -45,6 +45,7 @@ public class PostQueryRepository {
                         post.likesCount,
                         post.commentCount,
                         post.createdTime,
+                        user.email,
                         user.nickname,
                         user.profileImage
                 ))
