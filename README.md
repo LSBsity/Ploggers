@@ -26,7 +26,7 @@
 - Vite
 - TypeScript
 -----
-## 기본 기능
+## 기본 기능 (Swagger -> http://52.79.216.37:8080/swagger-ui/index.html#/)
 - 회원가입 (BCrypt 암호화)
 - 로그인 (JWT토큰 이용)
 - 글 쓰기 (사진 기능 추가 예정)
