@@ -39,7 +39,7 @@
 ## 기본 기능 (Swagger -> http://52.79.216.37:8080/swagger-ui/index.html#/)
 - 회원가입 (BCryptPasswordEncoder 암호화)
 - 로그인 (JWT Token 이용)
-- 게시글 CRUD
+- 게시글 CRUD (사진, 동영상 기능 추가 예정)
 - 댓글 CRUD
 - 좋아요
 - 프로필 사진 (사진 기능 추가 예정)
